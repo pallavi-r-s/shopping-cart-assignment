@@ -1,0 +1,8 @@
+This project shooping cart website is built using HTML5,css3,Javascript only.
+
+To view pages of shopping cart website you can open html pages of site on any browser.
+
+in visual studio code,
+In one terminal, Run server using cmd => npm run start
+
+In other terminal you can build this project
