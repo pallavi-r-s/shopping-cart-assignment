@@ -1,0 +1,12 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "js shoppping bazar site",
+  "main": "index.js",
+  "scripts": {
+    "start-dev":"npm run start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "pallavi suryavanshi",
+  "license": "ISC"
+}

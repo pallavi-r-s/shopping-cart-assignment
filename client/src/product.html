@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height ,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SABKA BAZAR</title>
+    
+    <link rel="stylesheet" type="text/css" href="./styles/product.css">
+</head>
+<body>
+    <header>
+        <nav id="main-navbar" class="navbar navbar-default navbar-fixed-top">
+            <div class="container navbar-container">
+                <div class="navbar-header">
+                    <!-- <p class="logo"><img src="./static/images/logo.png"></p> -->
+                    <a class="navbar-brand" href="#"><img src="./static/images/logo.png"></a>
+                    <div id="navbar" style="margin-top: -98px;margin-left: 200px;" class="navbar-collapse collapse">
+                        <ul style="list-style:none;" class="nav navbar-nav navbar-left">
+                            <li><a href="./home.html">Home</a></li>
+                            <li><a href="./product.html">Products</a></li>
+                            <div style="align-self: center;margin: 20px;">
+                                <img src="./static/images/cart.svg" height="30px" width="26px" alt="cart image">
+                            </div> 
+                           
+                        </ul>
+                        
+                    </div>
+                    
+                </div>
+    
+                <div class="top-social">
+                    <ul id="top-social-menu">
+                        
+                        <li><a href="./login.html">SignIn</a></li>
+                        <li><a href="./register.html">Register</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+      <div class="w3-sidebar w3-collapse" id="sidenav">
+        <div id="leftmenuinnerproduct">
+          <div id="leftmenuinnerinnerproduct">
+                <a target="_top" href="#"> Fruits & Vegetables</a>
+                
+                <a target="_top" href="#"> Bakery Cakes and Diary </a>
+                <a target="_top" href="#" class="active">Beverages</a>
+                <a target="_top" href="#"> Beauty and Hygiene</a>
+                <a target="_top" href="#"> Baby Care</a>
+      
+            <br><br>
+          </div>
+        </div>
+    </div>
+
+      
+    <main id="main" style="display:inline-flex;margin-left: 440px; padding-top: 0px;"></main>
+
+    <Footer id="footer">
+        <div><p> Copyright 2011-2018 Subka Bazaar Grocery Supplies Pvt Ltd </p> </div>
+    </Footer>
+
+<script>
+        fetch('http://localhost:5000/products')
+            .then(function (response) {
+
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data){
+
+            console.log(data);
+
+            var mainContainer = document.getElementById("main");
+
+            data.forEach((result, idx) => {
+
+            // Construct card content
+            const content = `
+                <div class="product-card" class="product-card">
+
+                    <h2 >${result.name}</h2>
+                    <div class="product-tumb">
+                        <img src=".${result.imageURL}" alt="">
+                    </div>
+                    <div class="product-details">
+                        <p>${result.description}</p>
+                            <div class="product-price">MRP Rs.${result.price}
+                                <div class="product-links">
+                                <button id="buybtn" name="buybtn">Buy Now</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+            </div>
+            `;
+
+            // Append newyly created card element to the container
+            mainContainer.innerHTML += content;
+            })
+        }
+    </script>
+</body>
+</html>

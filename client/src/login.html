@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height ,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SABKA BAZAR</title>
+    
+    <link rel="stylesheet" type="text/css" href="./styles/product.css">
+</head>
+<body>
+
+<header>
+    <nav id="main-navbar" class="navbar navbar-default navbar-fixed-top">
+        <div class="container navbar-container">
+            <div class="navbar-header">
+                <!-- <p class="logo"><img src="./static/images/logo.png"></p> -->
+                <a class="navbar-brand" href="#"><img src="./static/images/logo.png"></a>
+                <div id="navbar" style="margin-top: -98px;margin-left: 200px;" class="navbar-collapse collapse">
+                    <ul style="list-style:none;" class="nav navbar-nav navbar-left">
+                        <li><a href="./home.html">Home</a></li>
+                        <li><a href="./product.html">Products</a></li>
+                        <div style="align-self: center;margin: 20px;">
+                            <img src="./static/images/cart.svg" height="30px" width="26px" alt="cart image">
+                        </div> 
+                       
+                    </ul>
+                    
+                </div>
+                
+            </div>
+
+            <div class="top-social">
+                <ul id="top-social-menu">
+                    
+                    <li><a href="./login.html">SignIn</a></li>
+                    <li><a href="./register.html">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- <div class="w3-sidebar w3-collapse" id="sidenav" style="top: 118px;">
+    <div id="leftspace" style="padding-top: 118px;">
+      <div id="leftmenuinnerinner">
+      </div>
+    </div>
+</div> -->
+
+<aside class="w3-sidebar w3-collapse" id="sidenav" style="top: 118px;">
+    <div id="leftmenuinner">
+      <div id="leftmenuinnerinner">
+        <h2>Login</h2>
+        <br><br>
+
+        <p>Get access to your Orders. Wishlist and Recommendations </p>
+        <br><br>
+      </div>
+    </div>
+</aside>
+
+<main id="main" style="display:inline-flex;margin-left: 440px; padding-top: 0px;">
+
+    <form >
+        <div class="container">
+    
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="Enter Email" name="email" id="email" required>
+      
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+      
+          <button type="submit" class="registerbtn">Login</button>
+        </div>
+      </form>
+
+</main>
+
+<Footer id="footer">
+<div><p> Copyright 2011-2018 Subka Bazaar Grocery Supplies Pvt Ltd </p> </div>
+</Footer>
+
+</body>
+</html>
+
