@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height ,initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,21 +9,22 @@
     <link rel="stylesheet" type="text/css" href="./styles/product.css">
 </head>
 <body>
-    <header>
+  <header>
         <nav id="main-navbar" class="navbar navbar-default navbar-fixed-top">
             <div class="container navbar-container">
                 <div class="navbar-header">
                     <!-- <p class="logo"><img src="./static/images/logo.png"></p> -->
                     <a class="navbar-brand" href="#"><img src="./static/images/logo.png"></a>
-                    <div id="navbar" style="margin-top: -98px;margin-left: 200px;" class="navbar-collapse collapse">
+                    <div id="navbar" style="margin-top: -98px;margin-left: 200px;display: flex;" class="navbar-collapse collapse">
                         <ul style="list-style:none;" class="nav navbar-nav navbar-left">
                             <li><a href="./home.html">Home</a></li>
                             <li><a href="./product.html">Products</a></li>
-                            <div style="align-self: center;margin: 20px;">
-                                <img src="./static/images/cart.svg" height="30px" width="26px" alt="cart image">
-                            </div> 
-                           
                         </ul>
+                        <div style="align-self: center;margin: 20px;">
+                            
+                            
+                            <button class="cart"><img src="./static/images/cart.svg" height="30px" width="26px" alt="cart image"><span>0</span>items</button>
+                        </div> 
                         
                     </div>
                     
@@ -40,6 +41,10 @@
         </nav>
     </header>
     
+    <!-- <div class="spacer">
+        &nbsp;
+    </div> -->
+
       <div class="w3-sidebar w3-collapse" id="sidenav">
         <div id="leftmenuinnerproduct">
           <div id="leftmenuinnerinnerproduct">
@@ -63,6 +68,19 @@
     </Footer>
 
 <script>
+        window.onscroll = function() {fixedHeader()};
+
+        var header = document.getElementById("main-navbar");
+        var sticky = header.offsetTop;
+
+        function fixedHeader() {
+        if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
+        }
+
         fetch('http://localhost:5000/products')
             .then(function (response) {
 
@@ -95,6 +113,7 @@
                             <div class="product-price">MRP Rs.${result.price}
                                 <div class="product-links">
                                 <button id="buybtn" name="buybtn">Buy Now</button>
+                                <button class="addcart" name="buybtn">Add To Cart</button>
                                 </div>
                             </div>
 
@@ -105,8 +124,43 @@
 
             // Append newyly created card element to the container
             mainContainer.innerHTML += content;
-            })
+            });
+            cart();
+
         }
+        function onLoadCartNumber(){
+            let productNumbers = localStorage.getItem('cartNumber');
+            productNumbers = parseInt(productNumbers);
+            if(productNumbers){
+                document.querySelector('.cart span').textContent=productNumbers;
+            }
+        }
+        function cart(){
+            let carts = document.querySelectorAll('.addcart');
+            console.log(carts);
+            for(let i=0;i<carts.length;i++){
+                carts[i].addEventListener('click',()=>{
+                    //console.log("aded to cart")
+                    cartNumbers();
+                })
+            }
+            function cartNumbers(){
+                let productNumbers = localStorage.getItem('cartNumber');
+
+                productNumbers = parseInt(productNumbers);
+                if(productNumbers){
+                    localStorage.setItem('cartNumber',productNumbers + 1);
+                    document.querySelector('.cart span').textContent=productNumbers + 1;
+                }else{
+                    localStorage.setItem('cartNumber',1);
+                    document.querySelector('.cart span').textContent=1;
+                }
+            
+        }
+        }
+        onLoadCartNumber();
+        
     </script>
+    <!-- <script defer src="./product.js"></script> -->
 </body>
 </html>

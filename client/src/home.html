@@ -17,16 +17,17 @@
             <div class="navbar-header">
                 <!-- <p class="logo"><img src="./static/images/logo.png"></p> -->
                 <a class="navbar-brand" href="#"><img src="./static/images/logo.png"></a>
-                <div id="navbar" style="margin-top: -98px;margin-left: 200px;" class="navbar-collapse collapse">
+                <div id="navbar" style="margin-top: -98px;margin-left: 200px;display: flex;" class="navbar-collapse collapse">
                     <ul style="list-style:none;" class="nav navbar-nav navbar-left">
                         <li><a href="./home.html">Home</a></li>
                         <li><a href="./product.html">Products</a></li>
-                        <div style="align-self: center;margin: 20px;">
-                            <img src="./static/images/cart.svg" height="30px" width="26px" alt="cart image" data-toggle="modal" data-target="#cartModal">
-                            
-                            <button class="open-button">view  cart</button>
-                        </div> 
+                        
                     </ul> 
+                    <div style="align-self: center;margin: 20px;">
+                            
+                            
+                        <button class="cart open-button"><img src="./static/images/cart.svg" height="30px" width="26px" alt="cart image"><span>0</span>items</button>
+                    </div> 
                 </div>
             </div>
 
@@ -43,21 +44,23 @@
 
 <dialog class="modal">
   <div class="modal-header">
-    <i class="material-icons md-18 close-button">close</i>
+    <div class="Header">
+        <h3 class="Heading">Shopping Cart</h3>
+        <h5 class="Action">Remove all</h5>
+        <i class="material-icons md-18 close-button">close</i>
+    </div>
+    
     <div class="CartContainer">
-        <div class="Header">
-            <h3 class="Heading">Shopping Cart</h3>
-            <h5 class="Action">Remove all</h5>
-        </div>
+        
 
         <div class="Cart-Items">
               <div class="image-box">
-                  <img src="images/apple.png" style={{ height="120px" }} />
+                  <img src="images/apple.png" style="height:20px"/>
               </div>
               <div class="about">
-                  <h1 class="title">Apple Juice</h1>
+                  <h1 class="title">Apple Juice</h1><br>
                   <h3 class="subtitle">250ml</h3>
-                  <img src="images/veg.png" style={{ height="30px" }}/>
+                  
               </div>
               <div class="counter">
                   <div class="btn">+</div>
@@ -68,17 +71,18 @@
                   <div class="amount">$2.99</div>
                   <div class="save"><u>Save for later</u></div>
                   <div class="remove"><u>Remove</u></div>
+                  
               </div>
         </div>
 
         <div class="Cart-Items pad">
               <div class="image-box">
-                  <img src="images/grapes.png" style={{ height="120px" }} />
+                  <img src="images/grapes.png" style="height:120px"/>
               </div>
               <div class="about">
                   <h1 class="title">Grapes Juice</h1>
                   <h3 class="subtitle">250ml</h3>
-                  <img src="images/veg.png" style={{ height="30px" }}/>
+                  <img src="images/veg.png" style="height:30px"/>
               </div>
               <div class="counter">
                   <div class="btn">+</div>
@@ -130,12 +134,25 @@
    
     
 </main>
-<!-- <Footer id="footer">
+<Footer id="footer">
     <div><p> Copyright 2011-2018 Subka Bazaar Grocery Supplies Pvt Ltd </p> </div>
-    </Footer> -->
+</Footer>
 
 
 <script>
+
+        window.onscroll = function() {fixedHeader()};
+
+        var header = document.getElementById("main-navbar");
+        var sticky = header.offsetTop;
+
+        function fixedHeader() {
+        if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
+        }
         
         const right = document.getElementById('right');
         const left = document.getElementById('left');
