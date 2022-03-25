@@ -7,6 +7,8 @@
     <title>SABKA BAZAR</title>
     
     <link rel="stylesheet" type="text/css" href="./styles/product.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
   <header>
@@ -23,7 +25,7 @@
                         <div style="align-self: center;margin: 20px;">
                             
                             
-                            <button class="cart"><img src="./static/images/cart.svg" height="30px" width="26px" alt="cart image"><span>0</span>items</button>
+                            <button class="cart open-button"><img src="./static/images/cart.svg" height="30px" width="26px" alt="cart image"><span>0</span>items</button>
                         </div> 
                         
                     </div>
@@ -60,7 +62,24 @@
         </div>
     </div>
 
-      
+    <dialog class="modal">
+        <div class="modal-header">
+          <div class="Header">
+              <h3 class="Heading">Shopping Cart</h3>
+              <h5 class="Action">Remove all</h5>
+              <i class="material-icons md-18 close-button">close</i>
+              <!-- <ion-icon name="close-outline"></ion-icon> -->
+          </div>
+          
+          <div id="CartContainer">
+          </div>
+          <div id="checkout">
+            
+            <button class="button">Checkout</button>
+        </div>
+        </div>
+      </dialog>  
+
     <main id="main" style="display:inline-flex;margin-left: 440px; padding-top: 0px;"></main>
 
     <Footer id="footer">
@@ -68,6 +87,7 @@
     </Footer>
 
 <script>
+        var products = [];
         window.onscroll = function() {fixedHeader()};
 
         var header = document.getElementById("main-navbar");
@@ -81,6 +101,18 @@
         }
         }
 
+        const modal= document.querySelector('.modal');
+        const openModal= document.querySelector('.open-button');
+        const closeModal= document.querySelector('.close-button');
+
+        openModal.addEventListener('click', () => {
+        modal.showModal();
+        });
+
+        closeModal.addEventListener('click', () => {
+        modal.close();
+        });
+
         fetch('http://localhost:5000/products')
             .then(function (response) {
 
@@ -92,7 +124,7 @@
             .catch(function (err) {
                 console.log('error: ' + err);
             });
-        function appendData(data){
+        async function appendData(data){
 
             console.log(data);
 
@@ -125,8 +157,22 @@
             // Append newyly created card element to the container
             mainContainer.innerHTML += content;
             });
-            cart();
 
+            products = await cartItems(data);
+
+            cart(products);
+
+            
+
+        }
+        function cartItems(data){
+
+            Object.keys(data).map(
+            function(object){
+                data[object]["inCart"] = 0;
+            });
+            return data;
+            //console.log("data after adding new key  :",data);
         }
         function onLoadCartNumber(){
             let productNumbers = localStorage.getItem('cartNumber');
@@ -135,16 +181,20 @@
                 document.querySelector('.cart span').textContent=productNumbers;
             }
         }
-        function cart(){
+        function cart(products){
             let carts = document.querySelectorAll('.addcart');
             console.log(carts);
             for(let i=0;i<carts.length;i++){
                 carts[i].addEventListener('click',()=>{
                     //console.log("aded to cart")
-                    cartNumbers();
+                    cartNumbers(products[i]);
+                    totalCost(products[i]);
                 })
             }
-            function cartNumbers(){
+        }
+        function cartNumbers(product){
+                //console.log("product clicked ",product);
+
                 let productNumbers = localStorage.getItem('cartNumber');
 
                 productNumbers = parseInt(productNumbers);
@@ -155,10 +205,119 @@
                     localStorage.setItem('cartNumber',1);
                     document.querySelector('.cart span').textContent=1;
                 }
+
+                setItems(product);
             
         }
+
+        function setItems(product){
+            //console.log("product in setItems fun " ,product);
+            let cartItems = localStorage.getItem('productsInCart');
+            cartItems = JSON.parse(cartItems);
+
+            //console.log("product in cart" ,cartItems);
+
+            if(cartItems != null){
+
+                if(cartItems[product.name] == undefined){
+                    cartItems = {
+                        ...cartItems,
+                        [product.name] :product
+                    }
+                }
+                cartItems[product.name].inCart += 1;
+            } else{
+                product.inCart = 1;
+                cartItems = {
+                    [product.name]: product
+                    }
+            }
+
+            localStorage.setItem('productsInCart',JSON.stringify(cartItems));
         }
+        function totalCost(product){
+            //console.log("totalcost:",product.price);
+            let cartCost = localStorage.getItem('cartCost');
+            //console.log("cartCost:",cartCost);
+            //console.log(typeof cartCost);
+
+            if(cartCost != null){
+                cartCost = parseInt(cartCost);
+                localStorage.setItem('cartCost',cartCost 
+                + product.price)
+
+            }else {
+                localStorage.setItem('cartCost',product.price)
+            }
+
+            var checkout = document.getElementById("checkout");
+
+            const content =`
+            `;
+
+            checkout.innerHTML += content;
+
+        }
+        function displayCart(){
+
+            let cartItems = localStorage.getItem("productsInCart");
+            cartItems = JSON.parse(cartItems);
+
+            var cartContainer = document.getElementById("CartContainer");
+
+            let cartCost = localStorage.getItem('cartCost');
+
+            console.log("cart items: ",cartItems);
+            //console.log("cartContainer",cartContainer);
+
+            if(cartItems){
+                //cartContainer.innerHTML = '';
+                //console.log("in dispaly if ");
+                Object.values(cartItems).map(item =>{
+
+                    //console.log("in dispaly fun ",item.name);
+
+                    const content =`
+                    <div class="Cart-Items">
+                        <div class="image-box">
+                            <img src=".${item.imageURL}" style="height:80px"/>
+                        </div>
+                        <div class="about">
+                            <h6 class="title">${item.name}</h6><br>
+                        </div>
+                        <div class="counter">
+                            <div class="btn">+</div>
+                            <div class="count">${item.inCart}</div>
+                            <div class="btn">-</div>
+                        </div>
+                        <div class="prices">
+                            <div class="amount">${item.price}</div>
+                            <div class="save"><u>Save for later</u></div>
+                            <div class="remove"><u>Remove</u></div>
+                            
+                        </div>
+                        <div id="Subtotal">${item.inCart * item.price} 
+                        </div>
+
+                    </div>
+                    `;
+
+                    cartContainer.innerHTML += content;
+
+                });
+
+                
+                cartContainer.innerHTML += `
+                
+                    <div class="total">
+                        <div id="total-amount">Total Cost: ${cartCost}</div>
+                    </div>`;
+            }
+
+        }
+        
         onLoadCartNumber();
+        displayCart();
         
     </script>
     <!-- <script defer src="./product.js"></script> -->

@@ -66,8 +66,6 @@ dialog {
   }
   
   .modal-header {
-    display: inline-flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     position: fixed;
@@ -101,12 +99,13 @@ dialog {
 
   /*--- shopping cart css --*/
 
-.CartContainer{
-	width: 70%;
-    height: 90%;
-    background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0px 10px 20px #1687d933;
+#CartContainer{
+  margin: 10px;
+  width: 96%;
+  height: 90%;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 10px 20px #1687d933;
 }
 
  .Header{
@@ -152,12 +151,12 @@ dialog {
  .title{
 	padding-top: 10px;
 	line-height: 10px;
-	font-size: 20px;
+	font-size: 16px;
 	font-family: 'Open Sans';
 	font-weight: 800;
 	color: #202020;
 }
-.CartContainer .subtitle{
+ .subtitle{
 	line-height: 10px;
 	font-size: 18px;
 	font-family: 'Open Sans';
@@ -165,7 +164,7 @@ dialog {
 	color: #909090;
 }
 
-.CartContainer .counter{
+ .counter{
 	width: 15%;
 	display: flex;
 	justify-content: space-between;
@@ -185,25 +184,25 @@ dialog {
 	color: #202020;
 	cursor: pointer;
 }
-.CartContainer .count{
+ .count{
 	font-size: 20px;
 	font-family: 'Open Sans';
 	font-weight: 600;
 	color: #202020;
 }
 
-.CartContainer .prices{
+ .prices{
 	height: 100%;
 	text-align: right;
 }
-.CartContainer .amount{
+ .amount{
 	padding-top: 20px;
 	font-size: 26px;
 	font-family: 'Open Sans';
 	font-weight: 800;
 	color: #202020;
 }
-.CartContainer .save{
+ .save{
 	padding-top: 5px;
 	font-size: 14px;
 	font-family: 'Open Sans';
@@ -229,30 +228,32 @@ hr{
 	float: right;
 	margin-right: 5%;
 }
-.CartContainer.checkout{
+#checkout{
 	float: right;
-	margin-right: 5%;
+	margin-right: -8%;
 	width: 28%;
 }
-.CartContainer.total{
+.total{
+  padding-top: 30px;
+  padding-right: 20px;
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 }
-.Subtotal{
+#Subtotal{
 	font-size: 22px;
 	font-family: 'Open Sans';
 	font-weight: 700;
 	color: #202020;
 }
-.items{
+#items{
 	font-size: 16px;
 	font-family: 'Open Sans';
 	font-weight: 500;
 	color: #909090;
 	line-height: 10px;
 }
-.total-amount{
+#total-amount{
 	font-size: 36px;
 	font-family: 'Open Sans';
 	font-weight: 900;
